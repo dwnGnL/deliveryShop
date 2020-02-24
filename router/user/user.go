@@ -1,12 +1,19 @@
-package router
+package user
 
 import (
+	"foodShop/dbr"
+	"foodShop/utils"
 	"net/http"
+
+	"github.com/jinzhu/gorm"
 
 	"github.com/gin-gonic/gin"
 )
 
+var Db *gorm.DB
+
 func CreateNewUser(c *gin.Context) {
+	Db = dbr.GetDb()
 	var createdUser CreateUser
 	var user User
 	var userForCheck User
@@ -20,7 +27,7 @@ func CreateNewUser(c *gin.Context) {
 		return
 	}
 
-	salt, pass := hashPassword(createdUser.Password)
+	salt, pass := utils.HashPassword(createdUser.Password)
 	user.Username = createdUser.UserName
 	user.FullName = createdUser.FIO
 	user.Password = pass
@@ -28,13 +35,13 @@ func CreateNewUser(c *gin.Context) {
 	user.Salt = salt
 	user.Role = 1
 	count := 0
-	db.Where("username =?", user.Username).Find(&userForCheck).Count(&count)
+	Db.Where("username =?", user.Username).Find(&userForCheck).Count(&count)
 	if count != 0 {
 		c.JSON(401, gin.H{"message": "user allready created"})
 		return
 	}
 
-	if err := db.Create(&user).Scan(&user).Error; err != nil {
+	if err := Db.Create(&user).Scan(&user).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": "cannot create user." + err.Error()})
 		return
 	}

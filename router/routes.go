@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"foodShop/dbr"
 	"foodShop/middleware"
+	"foodShop/router/user"
 	"foodShop/utils"
 	"log"
 	"net/http"
@@ -37,8 +38,8 @@ func Init() {
 		Key:           []byte(config.Key),
 		Timeout:       time.Second * time.Duration(config.Timeout),
 		MaxRefresh:    time.Hour * 24,
-		Authenticator: authenticate,
-		PayloadFunc:   payload,
+		Authenticator: user.Authenticate,
+		PayloadFunc:   user.Payload,
 	}
 
 	// Initialize default gin router
@@ -46,7 +47,7 @@ func Init() {
 
 	defaultRouter.Use(middleware.Logger(logger), gin.Recovery())
 	defaultRouter.Use(middleware.CORSMiddleware())
-	defaultRouter.POST("/v1/newUser", CreateNewUser)
+	defaultRouter.POST("/v1/newUser", user.CreateNewUser)
 	defaultRouter.POST("/v1/login", jwtMiddleware.LoginHandler)
 
 	defaultRouter.NoRoute(func(c *gin.Context) {

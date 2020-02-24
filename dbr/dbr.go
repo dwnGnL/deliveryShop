@@ -9,6 +9,9 @@ import (
 )
 
 // Init database.
+
+var Db *gorm.DB
+
 func Init(dbURI string, logger *logrus.Logger) *gorm.DB {
 	db, err := gorm.Open("mysql", dbURI)
 
@@ -21,5 +24,10 @@ func Init(dbURI string, logger *logrus.Logger) *gorm.DB {
 		name:   "dbLogger",
 		logger: logger,
 	})
-	return db.LogMode(true)
+	Db = db.LogMode(true)
+	return Db
+}
+
+func GetDb() *gorm.DB {
+	return Db
 }
