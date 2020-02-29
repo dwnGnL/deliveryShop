@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 23 2020 г., 18:40
+-- Время создания: Фев 29 2020 г., 15:48
 -- Версия сервера: 5.6.41
 -- Версия PHP: 7.2.10
 
@@ -44,6 +44,32 @@ INSERT INTO `troles` (`role_id`, `role_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `tstore`
+--
+
+CREATE TABLE `tstore` (
+  `id` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `raiting` int(11) DEFAULT NULL,
+  `logotype` varchar(300) NOT NULL,
+  `location` varchar(500) NOT NULL,
+  `description` text NOT NULL,
+  `banner` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `tstore`
+--
+
+INSERT INTO `tstore` (`id`, `name`, `raiting`, `logotype`, `location`, `description`, `banner`) VALUES
+(1, 'макдональдс епта', 5, 'https://www.meme-arsenal.com/memes/c03ff4634b5dbf032d77c33171906807.jpg', 'выфвыфвывыф', 'выфвыфвыфвыфвыфвыф', 'https://www.meme-arsenal.com/memes/c03ff4634b5dbf032d77c33171906807.jpg'),
+(2, 'чикен епта', 5, 'https://www.patee.ru/r/x6/10/21/e7/640m.jpg', 'выфвыфвывыф', 'выфвыфвыфвыфвыфвыф', 'https://www.meme-arsenal.com/memes/c03ff4634b5dbf032d77c33171906807.jpg'),
+(3, 'бундес епта', 5, 'https://markets.tj/imgs/m/Markets_tj_m_10335_big_2.jpg', 'выфвыфвывыф', 'выфвыфвыфвыфвыфвыф', 'https://www.meme-arsenal.com/memes/c03ff4634b5dbf032d77c33171906807.jpg'),
+(4, 'Алик епта', 5, 'https://sun9-51.userapi.com/J5bbZPpISZIFW88lJ6X9E3jy6N1QrqQAzcy98Q/MWWqPLhmCpg.jpg?ava=1', 'выфвыфвывыф', 'выфвыфвыфвыфвыфвыф', 'https://www.meme-arsenal.com/memes/c03ff4634b5dbf032d77c33171906807.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `tusers`
 --
 
@@ -76,6 +102,12 @@ ALTER TABLE `troles`
   ADD PRIMARY KEY (`role_id`);
 
 --
+-- Индексы таблицы `tstore`
+--
+ALTER TABLE `tstore`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `tusers`
 --
 ALTER TABLE `tusers`
@@ -91,6 +123,12 @@ ALTER TABLE `tusers`
 --
 ALTER TABLE `troles`
   MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT для таблицы `tstore`
+--
+ALTER TABLE `tstore`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `tusers`

@@ -50,7 +50,7 @@ func Init() {
 	defaultRouter.Use(middleware.CORSMiddleware())
 	defaultRouter.POST("/v1/newUser", user.CreateNewUser)
 	defaultRouter.POST("/v1/login", jwtMiddleware.LoginHandler)
-	defaultRouter.GET("/v1/store/pages", store.GetCountOfStore)
+	defaultRouter.GET("/v1/store/count", store.GetCountOfStore)
 	defaultRouter.POST("/v1/store", store.GetStores)
 
 	defaultRouter.NoRoute(func(c *gin.Context) {
