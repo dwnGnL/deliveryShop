@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"foodShop/dbr"
 	"foodShop/middleware"
+	"foodShop/router/store"
 	"foodShop/router/user"
 	"foodShop/utils"
 	"log"
@@ -49,6 +50,8 @@ func Init() {
 	defaultRouter.Use(middleware.CORSMiddleware())
 	defaultRouter.POST("/v1/newUser", user.CreateNewUser)
 	defaultRouter.POST("/v1/login", jwtMiddleware.LoginHandler)
+	defaultRouter.GET("/v1/store/pages", store.GetCountOfStore)
+	defaultRouter.POST("/v1/store", store.GetStores)
 
 	defaultRouter.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
